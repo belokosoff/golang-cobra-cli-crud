@@ -25,12 +25,13 @@ var addCmd = &cobra.Command{
 		title, _ := cmd.Flags().GetString("title")
 		author, _ := cmd.Flags().GetString("author")
 		year, _ := cmd.Flags().GetInt("year")
+		status, _ := cmd.Flags().GetString("status")
 
 		book := models.Book{
 			Title:         title,
 			Author:        author,
 			PublishedYear: year,
-			Status:        "unread",
+			Status:        status,
 		}
 
 		if err := repo.AddBook(book); err != nil {
@@ -44,5 +45,6 @@ func init() {
 	rootCmd.AddCommand(addCmd)
 	addCmd.Flags().StringP("title", "t", "", "Book title")
 	addCmd.Flags().StringP("author", "a", "", "Book author")
+	addCmd.Flags().StringP("status", "s", "", "Book status (read/unread)")
 	addCmd.Flags().IntP("year", "y", 0, "Published year")
 }
